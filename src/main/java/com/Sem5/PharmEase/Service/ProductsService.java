@@ -3,7 +3,7 @@ package com.Sem5.PharmEase.Service;
 import com.Sem5.PharmEase.Models.Products;
 import com.Sem5.PharmEase.Repository.ProductsRepository;
 import com.Sem5.PharmEase.ResourceNotFoundException;
-import org.bson.types.ObjectId;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
@@ -41,6 +41,7 @@ public class ProductsService{
             product.setMrp(productDetails.getMrp());
             product.setRate(productDetails.getRate());
             product.setType(productDetails.getType());
+            product.setDescription(productDetails.getDescription());
             return productsRepository.save(product);
         }).orElseThrow(() -> new ResourceNotFoundException("Product not found with name " + name));
     }

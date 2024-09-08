@@ -3,7 +3,6 @@ package com.Sem5.PharmEase.Models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -24,6 +23,6 @@ public class Products {
     private Integer mrp;
     private Integer rate;
     private String type;
-
+    private String description;
 
 }
