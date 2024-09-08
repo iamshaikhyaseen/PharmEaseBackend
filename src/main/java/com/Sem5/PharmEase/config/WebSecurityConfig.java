@@ -17,7 +17,7 @@ public class WebSecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Store CSRF token in a cookie
                 )
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/api/medicals/**","/api/products/**").permitAll() // Allow access without authentication
+                    .requestMatchers("/api/medicals/**","/api/products/**").permitAll() // Allow access without authentication
                         .anyRequest().authenticated() // Authenticate all other requests
                 );
 

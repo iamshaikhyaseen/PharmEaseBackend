@@ -12,8 +12,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Products {
+
+
     @Id
-    private ObjectId id;
     private String name;
     private String[] contents;
     private Integer hsn;
@@ -23,4 +24,6 @@ public class Products {
     private Integer mrp;
     private Integer rate;
     private String type;
+
+
 }

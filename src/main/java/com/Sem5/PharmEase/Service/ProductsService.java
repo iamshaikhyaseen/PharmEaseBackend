@@ -24,14 +24,14 @@ public class ProductsService{
     public List<Products> getAllProducts(){
         return productsRepository.findAll();
     }
-    public Optional<Products> getProductById(ObjectId id){
-        return productsRepository.findById(id);
+    public Optional<Products> getProductByName(String name){
+        return productsRepository.findByName(name);
     }
-    public void deleteProduct(ObjectId id){
-        productsRepository.deleteById(id);
+    public void deleteProduct(String name){
+        productsRepository.deleteByName(name);
     }
-    public Products updateProduct(ObjectId id, Products productDetails){
-        return productsRepository.findById(id).map(product -> {
+    public Products updateProduct(String name, Products productDetails){
+        return productsRepository.findByName(name).map(product -> {
             product.setName(productDetails.getName());
             product.setContents(productDetails.getContents());
             product.setHsn(productDetails.getHsn());
@@ -42,7 +42,7 @@ public class ProductsService{
             product.setRate(productDetails.getRate());
             product.setType(productDetails.getType());
             return productsRepository.save(product);
-        }).orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+        }).orElseThrow(() -> new ResourceNotFoundException("Product not found with name " + name));
     }
 
 }

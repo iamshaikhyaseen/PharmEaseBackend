@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface ProductsRepository extends MongoRepository<Products,ObjectId> {
-    Optional<Products> findById(ObjectId id);
+public interface ProductsRepository extends MongoRepository<Products,String> {
+    Optional<Products> findByName(String name);
+    void deleteByName(String name);
 }
