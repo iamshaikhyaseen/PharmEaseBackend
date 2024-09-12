@@ -31,22 +31,20 @@ public class MedicalService {
         return medicalsRepository.findAll();
     }
 
-    public Optional<Medicals> findMedicalById(ObjectId id){
+    public Optional<Medicals> findMedicalById(String id){
         return medicalsRepository.findById(id);
     }
 
-    public void deleteMedical(ObjectId id){
+    public void deleteMedical(String id){
         medicalsRepository.deleteById(id);
     }
 
-    public Optional<Medicals> findMedicalByDlNo(String dlNo){
-        return medicalsRepository.findByDlNo(dlNo);
-    }
+
     public Optional<Medicals> findMedicalByEmail(String email){
         return medicalsRepository.findByEmail(email);
     }
 
-    public Medicals updateMedical(ObjectId id,Medicals medicalDetails){
+    public Medicals updateMedical(String id,Medicals medicalDetails){
         return medicalsRepository.findById(id).map(medicals -> {
             medicals.setName(medicalDetails.getName());
             medicals.setAddress(medicalDetails.getAddress());
@@ -54,6 +52,10 @@ public class MedicalService {
             medicals.setDlNo(medicalDetails.getDlNo());
             medicals.setGstIn(medicalDetails.getGstIn());
             medicals.setProductsList(medicalDetails.getProductsList());
+            if (medicalDetails.getPassword() != null && !medicalDetails.getPassword().isEmpty()) {
+                String hashedPassword = encoder.encode(medicalDetails.getPassword());
+                medicals.setPassword(hashedPassword); // Save the hashed password
+            }
             return medicalsRepository.save(medicals);
         }).orElseThrow(()->new ResourceNotFoundException("Medical not found with id"+id));
 

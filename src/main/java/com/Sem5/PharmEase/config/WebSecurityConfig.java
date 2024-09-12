@@ -13,11 +13,11 @@ public class WebSecurityConfig {
         http
                 // Configure CSRF to ignore certain endpoints
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/medicals/**","/api/products/**") // Ignore CSRF protection for /api/medicals/** endpoints
+                        .ignoringRequestMatchers("/api/medicals/**","/api/products/**","/api/bills/**") // Ignore CSRF protection for /api/medicals/** endpoints
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // Store CSRF token in a cookie
                 )
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                    .requestMatchers("/api/medicals/**","/api/products/**").permitAll() // Allow access without authentication
+                    .requestMatchers("/api/medicals/**","/api/products/**","/api/bills/**").permitAll() // Allow access without authentication
                         .anyRequest().authenticated() // Authenticate all other requests
                 );
 

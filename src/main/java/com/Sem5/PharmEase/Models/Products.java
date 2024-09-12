@@ -16,12 +16,12 @@ public class Products {
     @Id
     private String name;
     private String[] contents;
-    private Integer hsn;
+    private String hsn;
     private String batchNo;
     private String pack;
     private String expiry;
-    private Integer mrp;
-    private Integer rate;
+    private Float mrp;
+    private Float rate;
     private String type;
     private String description;
 
