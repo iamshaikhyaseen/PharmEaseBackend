@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "bills")
@@ -15,23 +17,21 @@ import java.util.List;
 public class Bill {
     @Id
     private String _id;
-    private String date;
-    private String dueDate;
+    private LocalDateTime date;
+    private LocalDateTime dueDate;
     private String medicalId;
     private String medicalName;
     private String medicalAddress;
     private String medicalRegion;
     private String gstin;
     private String dlno;
-
     private Float grandTotal;
-
     private List<ProductInfo>products;
-
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProductInfo{
+        private String _id;
         private String name;
         private String batchNo;
         private String hsn;

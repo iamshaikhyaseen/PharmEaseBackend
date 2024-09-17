@@ -16,11 +16,8 @@ public class BillController {
     private BillService billService;
 
     @PostMapping
-    public ResponseEntity<Bill>createBill(@RequestBody Bill bill){
-        Bill newBill=billService.createBill(bill);
-        
-
-        return ResponseEntity.ok(newBill);
+    public Bill createBill(@RequestBody Bill bill){
+        return billService.createBill(bill);
     }
 
     @GetMapping

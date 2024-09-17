@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Document(collection = "Products")  
 @Data
 @NoArgsConstructor
@@ -14,6 +17,7 @@ public class Products {
 
 
     @Id
+    private String _id;
     private String name;
     private String[] contents;
     private String hsn;
@@ -24,5 +28,6 @@ public class Products {
     private Float rate;
     private String type;
     private String description;
-
+    private Integer stock;
+    private String imageUrl;
 }

@@ -5,6 +5,8 @@ import com.Sem5.PharmEase.Repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -13,27 +15,26 @@ public class BillService {
     @Autowired
     private BillRepository billRepository;
 
-    // Create a new bill
     public Bill createBill(Bill bill) {
         float grandTotal = 0;
+        bill.setDate(LocalDateTime.now());
+        bill.setDueDate(LocalDateTime.now().plusDays(15));
 
-        // Calculate total for each product and the grand total
         for (Bill.ProductInfo product : bill.getProducts()) {
             float productTotal = product.getQuantity() * product.getRate();
             product.setTotalPrice(productTotal);
             grandTotal += productTotal;
         }
-        bill.setGrandTotal(grandTotal);
 
+        bill.setGrandTotal(grandTotal);
         return billRepository.save(bill);
     }
 
-    // Get all bills
-    public List<Bill> getAllBills() {
+    public List<Bill> getAllBills()
+    {
         return billRepository.findAll();
     }
 
-    // Get a bill by ID
     public Bill getBillById(String id) {
         return billRepository.findById(id).orElse(null);
     }

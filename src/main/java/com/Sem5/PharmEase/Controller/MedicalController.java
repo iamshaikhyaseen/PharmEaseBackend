@@ -5,8 +5,8 @@ import com.Sem5.PharmEase.Models.Medicals;
 import com.Sem5.PharmEase.Repository.MedicalsRepository;
 import com.Sem5.PharmEase.ResourceNotFoundException;
 import com.Sem5.PharmEase.Service.MedicalService;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +22,13 @@ public class MedicalController {
     private MedicalsRepository medicalsRepository;
     private BCryptPasswordEncoder encoder;
     @PostMapping
-    public Medicals createMedical(@RequestBody Medicals medicals){
-        return medicalService.createMedical(medicals);
+    public ResponseEntity<String> createMedical(@RequestBody Medicals medicals) {
+        try {
+            medicalService.createMedical(medicals);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Medical created successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")
@@ -73,13 +78,44 @@ public class MedicalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Medicals> updateProduct(@PathVariable String id, @RequestBody Medicals medicalDetails){
+    public ResponseEntity<?> updateProduct(@PathVariable String id, @RequestBody Medicals medicalDetails){
         try {
             Medicals updatedMedical=medicalService.updateMedical(id,medicalDetails);
             return ResponseEntity.ok(updatedMedical);
-        } catch (ResourceNotFoundException e){
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
 
         }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Medicals>> searchMedicals(@RequestParam String query) {
+        List<Medicals> results = medicalService.searchMedicals(query);
+        return ResponseEntity.ok(results);
+    }
+
+    @GetMapping("/search/dlno")
+    public ResponseEntity<List<Medicals>> searchByDlNo(@RequestParam String dlNo) {
+        List<Medicals> results = medicalService.searchByDlNo(dlNo);
+        return ResponseEntity.ok(results);
+    }
+
+    @GetMapping("/search/gstin")
+    public ResponseEntity<List<Medicals>> searchByGstIn(@RequestParam String gstin) {
+        List<Medicals> results = medicalService.searchByGstin(gstin);
+        return ResponseEntity.ok(results);
+    }
+
+    @GetMapping("/search/email")
+    public ResponseEntity<List<Medicals>> searchByEmail(@RequestParam String email) {
+        List<Medicals> results = medicalService.searchByEmail(email);
+        return ResponseEntity.ok(results);
+    }
+
+    // Sort medicals by region
+    @GetMapping("/sort")
+    public ResponseEntity<List<Medicals>> sortMedicalsByRegion(@RequestParam String region) {
+        List<Medicals> sortedMedicals = medicalService.sortMedicalsByRegion(region);
+        return ResponseEntity.ok(sortedMedicals);
     }
 }
