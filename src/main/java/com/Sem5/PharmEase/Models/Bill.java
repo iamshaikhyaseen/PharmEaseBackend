@@ -23,15 +23,13 @@ public class Bill {
     private String medicalRegion;
     private String gstin;
     private String dlno;
-
     private Float grandTotal;
-
     private List<ProductInfo>products;
-
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ProductInfo{
+        private String _id;
         private String name;
         private String batchNo;
         private String hsn;

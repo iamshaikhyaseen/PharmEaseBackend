@@ -51,7 +51,6 @@ public class MedicalService {
             medicals.setRegion(medicalDetails.getRegion());
             medicals.setDlNo(medicalDetails.getDlNo());
             medicals.setGstIn(medicalDetails.getGstIn());
-            medicals.setProductsList(medicalDetails.getProductsList());
             if (medicalDetails.getPassword() != null && !medicalDetails.getPassword().isEmpty()) {
                 String hashedPassword = encoder.encode(medicalDetails.getPassword());
                 medicals.setPassword(hashedPassword); // Save the hashed password
